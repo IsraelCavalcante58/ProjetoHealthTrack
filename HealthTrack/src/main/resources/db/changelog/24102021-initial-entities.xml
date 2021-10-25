@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="Tabela_Usuario" author="Leo">
+        <createTable tableName="T_USUARIO">
+
+            <column name="cd_usuario" type="BIGINT"></column>
+            <column name="nm_usuario" type="VARCHAR(255)"></column>
+            <column name="pass_usuario" type="VARCHAR(255)"></column>
+            <column name="vl_peso" type="FLOAT"></column>
+            <column name="vl_altura" type="FLOAT"></column>
+            <column name="ds_pais" type="VARCHAR(58)"></column>
+            <column name="ds_estado" type="VARCHAR(255)"></column>
+            <column name="ds_cidade" type="VARCHAR(255)"></column>
+            <column name="nr_celular" type="VARCHAR(255)"></column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="pk_tabela_usuario" author="Leo">
+        <addPrimaryKey columnNames="cd_usuario" tableName="T_USUARIO" constraintName="tabela_usuario_pk"/>
+        <addAutoIncrement columnDataType="BIGINT" columnName="cd_usuario" incrementBy="1" tableName="T_USUARIO"/>
+    </changeSet>
+
+
+    <changeSet author="Leo" id="addColuna_DataNasc">
+        <addColumn tableName="T_USUARIO">
+            <column name="vl_datanasc"
+                    type="datetime"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Leo"  id="addNotNull_Usuario">
+        <addNotNullConstraint columnDataType="VARCHAR(255)"
+                              columnName="nm_usuario"
+                              constraintName="nm_usuario_notnull"
+                              tableName="T_USUARIO"
+                              />
+    </changeSet>
+
+    <changeSet author="Leo" id="addColuna_Email">
+        <addColumn tableName="T_USUARIO">
+            <column name="email_usuario"
+                    type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Leo"  id="addNotNull_Email">
+    <addNotNullConstraint columnDataType="VARCHAR(255)"
+                          columnName="email_usuario"
+                          constraintName="email_usuario_notnull"
+                          tableName="T_USUARIO"
+    />
+    </changeSet>
+</databaseChangeLog>
