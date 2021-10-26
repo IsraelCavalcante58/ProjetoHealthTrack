@@ -1,0 +1,2 @@
+# ProjetoHealthTrack
+Projeto inspirado nos desafios que a minha faculdade têm passado. A proposta do meu curso nesse meu primeiro semestre é fazer um aplicativo voltado para a área de saúde totalmente do zero, ou seja, desde a parte lógica que envolve metodologias ágeis, prototipação e etc até a parte de realmente codar. Esse projeto será evoluído conforme minhas skills como desenvolvedor forem melhorando. Também estou aceitando sugestões de implementações, pois estou sem criatividade para novas funcionalidades.
