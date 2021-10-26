@@ -53,12 +53,5 @@ public class Usuario {
         return dataNasc.until(dataAtual).getYears();
     }
 
-    public void dadosUsuario() {
-        System.out.println("Nome: " + getNome() +
-                "\nIdade: " + getIdade() +
-                "\n Peso: " + getPeso() +
-                "\n Altura: " + getAltura() +
-                "\n País: " + getPais() +
-                "\n Tel: " + getNumeroCelular());
-    }
+
 }

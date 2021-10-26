@@ -12,6 +12,7 @@ public class EditarDadosService {
     @Autowired
     EditarDadosRepository repository; // Instanciando a classe
 
+        // Função para salvar um usuário com a condição de não ter o mesmo E-Mail cadastrado
     public Usuario salvar(Usuario usuario){
         Usuario emailcheck = repository.findByEmail(usuario.getEmail());
         if (emailcheck != null) {
@@ -19,5 +20,21 @@ public class EditarDadosService {
             return null;
         }
         return repository.save(usuario);
+    }
+
+    public Usuario editar(Usuario usuario){
+        Usuario editarUsuario = repository.findById(usuario.getId()).orElse(null);
+        if (editarUsuario == null){
+            System.out.println("Esse usuário não existe.");
+            return null;
+        }
+        editarUsuario.setEmail(usuario.getEmail());
+        editarUsuario.setPeso(usuario.getPeso());
+        editarUsuario.setNumeroCelular(usuario.getNumeroCelular());
+        editarUsuario.setAltura(usuario.getAltura());
+        editarUsuario.setPais(usuario.getPais());
+        editarUsuario.setEstado(usuario.getEstado());
+        editarUsuario.setCidade(usuario.getCidade());
+        return repository.save(editarUsuario);
     }
 }
