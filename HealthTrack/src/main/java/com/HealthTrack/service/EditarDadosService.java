@@ -37,4 +37,13 @@ public class EditarDadosService {
         editarUsuario.setCidade(usuario.getCidade());
         return repository.save(editarUsuario);
     }
+    public void excluir(Long id){
+        Usuario excluirUsuario = repository.findById(id).orElse(null);
+        if (excluirUsuario == null){
+            System.out.println("Esse usuário não existe");
+            return;
+        }
+        repository.delete(excluirUsuario);
+
+    }
 }

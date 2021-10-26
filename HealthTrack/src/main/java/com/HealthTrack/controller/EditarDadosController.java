@@ -21,5 +21,9 @@ public class EditarDadosController {
     public Usuario editarUsuario(@RequestBody Usuario usuario){
         return service.editar(usuario);
     }
+    @DeleteMapping("/excluir/{id}")
+    public void excluirUsuario(@PathVariable Long id){
+        service.excluir(id);
+    }
 
 }
