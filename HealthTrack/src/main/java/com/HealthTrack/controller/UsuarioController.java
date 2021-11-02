@@ -1,17 +1,17 @@
 package com.HealthTrack.controller;
 
 import com.HealthTrack.model.Usuario;
-import com.HealthTrack.service.EditarDadosService;
+import com.HealthTrack.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/usuario")
-public class EditarDadosController {
+public class UsuarioController {
 
     @Autowired
-    EditarDadosService service;
-
+    UsuarioService service;
+    // Endpoints do usuário
     // Post para criar o usuário
     @PostMapping("/criar")
     public Usuario criarUsuario(@RequestBody Usuario usuario) {

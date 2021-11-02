@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EditarDadosRepository extends JpaRepository<Usuario, Long>, JpaSpecificationExecutor<Usuario> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>, JpaSpecificationExecutor<Usuario> {
     Usuario findByEmail(String email);
 
 }
