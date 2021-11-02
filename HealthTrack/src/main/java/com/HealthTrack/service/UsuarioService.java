@@ -47,4 +47,13 @@ public class UsuarioService {
         usuarioRepository.delete(excluirUsuario);
 
     }
+    public Usuario editarPeso(Usuario usuario){
+        Usuario editarPesoUsuario = usuarioRepository.findById(usuario.getId()).orElse(null);
+        if (editarPesoUsuario == null){
+            System.out.println("Esse usuário não existe");
+            return null;
+        }
+        editarPesoUsuario.setPeso(usuario.getPeso());
+        return usuarioRepository.save(editarPesoUsuario);
+    }
 }

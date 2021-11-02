@@ -25,5 +25,9 @@ public class UsuarioController {
     public void excluirUsuario(@PathVariable Long id){
         service.excluir(id);
     }
+    @PutMapping("/editar-peso")
+    public Usuario editarPeso(@RequestBody Usuario usuario){
+        return service.editarPeso(usuario);
+    }
 
 }
