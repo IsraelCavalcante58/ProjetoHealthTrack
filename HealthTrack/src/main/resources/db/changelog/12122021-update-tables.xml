@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet author="Leo" id="Apagar-Colunas-Tabela_Usuario">
+        <dropColumn
+                columnName="ds_pais"
+                tableName="T_USUARIO">
+        </dropColumn>
+        <dropColumn
+                columnName="ds_estado"
+                tableName="T_USUARIO">
+        </dropColumn>
+        <dropColumn
+                columnName="ds_cidade"
+                tableName="T_USUARIO">
+        </dropColumn>
+        <dropColumn
+                columnName="nr_celular"
+                tableName="T_USUARIO">
+        </dropColumn>
+    </changeSet>
+
+    <changeSet author="Leo" id="addColuna_ds_sexo">
+        <addColumn tableName="T_USUARIO">
+            <column name="ds_sexo"
+                    type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="Leo" id="Renomeando-Tabela">
+        <renameTable
+                newTableName="T_PESSOA"
+                oldTableName="T_USUARIO"
+        />
+    </changeSet>
+
+    <changeSet author="Leo" id="Renomeando-Coluna">
+        <renameColumn
+                columnDataType="BIGINT"
+                newColumnName="cd_pessoa"
+                oldColumnName="cd_usuario"
+                tableName="T_PESSOA"/>
+    </changeSet>
+
+    <changeSet id="Tabela_Telefone" author="Leo">
+        <createTable tableName="T_TELEFONE">
+
+            <column name="cd_telefone" type="BIGINT"></column>
+            <column name="cd_pessoa" type="bigint"></column>
+            <column name="tp_telefone" type="VARCHAR(30)"></column>
+            <column name="nr_telefone" type="VARCHAR(30)"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_Tabela_Telefone" author="Leo">
+        <addPrimaryKey columnNames="cd_telefone" tableName="T_TELEFONE" constraintName="tabela_telefone_pk"/>
+        <addAutoIncrement columnDataType="BIGINT" columnName="cd_telefone" incrementBy="1" tableName="T_TELEFONE"/>
+    </changeSet>
+
+    <changeSet author="lEO" id="addForeignKeyConstraint">
+        <addForeignKeyConstraint baseColumnNames="cd_pessoa"
+                                 baseTableName="T_TELEFONE"
+                                 constraintName="fk_pessoa_telefone"
+                                 referencedColumnNames="cd_pessoa"
+                                 referencedTableName="T_PESSOA"
+
+        />
+    </changeSet>
+
+    <changeSet id="Tabela_Endereco" author="Leo">
+        <createTable tableName="T_ENDERECO">
+
+            <column name="cd_endereco" type="BIGINT"></column>
+            <column name="cd_pessoa" type="bigint"></column>
+            <column name="ds_cidade" type="VARCHAR(255)"></column>
+            <column name="ds_rua" type="VARCHAR(255)"></column>
+            <column name="ds_cep" type="VARCHAR(255)"></column>
+            <column name="ds_estado" type="VARCHAR(255)"></column>
+            <column name="ds_bloco" type="VARCHAR(255)"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_tabela_endereco" author="Leo">
+        <addPrimaryKey columnNames="cd_endereco" tableName="T_ENDERECO" constraintName="tabela_endereco_pk"/>
+        <addAutoIncrement columnDataType="BIGINT" columnName="cd_endereco" incrementBy="1" tableName="T_ENDERECO"/>
+    </changeSet>
+
+
+    <changeSet author="Leo" id="ADD_FK_T_ENDERECO">
+        <addForeignKeyConstraint baseColumnNames="cd_pessoa"
+                                 baseTableName="T_ENDERECO"
+                                 constraintName="fk_endereco"
+                                 referencedColumnNames="cd_pessoa"
+                                 referencedTableName="T_PESSOA"
+
+        />
+    </changeSet>
+
+    <changeSet id="Tabela_Usuario" author="Leo">
+        <createTable tableName="T_USUARIO">
+
+            <column name="cd_usuario" type="BIGINT"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_tabela_usuario" author="Leo">
+        <addPrimaryKey columnNames="cd_usuario" tableName="T_USUARIO" constraintName="tabela_usuario_pk"/>
+    </changeSet>
+
+
+    <changeSet author="lEO" id="ADD_FK_T_USUARIO">
+        <addForeignKeyConstraint baseColumnNames="cd_usuario"
+                                 baseTableName="T_USUARIO"
+                                 constraintName="fk_usuario"
+                                 referencedColumnNames="cd_pessoa"
+                                 referencedTableName="T_PESSOA"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_EXERCICIO_INFO" author="Leo">
+        <createTable tableName="T_EXERCICIO_INFO">
+
+            <column name="cd_exercicio_info" type="BIGINT"></column>
+            <column name="tp_exercicio" type="VARCHAR(40)"></column>
+            <column name="nm_exercicio" type="Varchar(40)"></column>
+            <column name="vl_caloria_min" type="FLOAT"></column>
+
+        </createTable>
+
+
+    </changeSet>
+
+    <changeSet id="pk_tabela_exercicio_info" author="Leo">
+        <addPrimaryKey columnNames="cd_exercicio_info" tableName="T_EXERCICIO_INFO"
+                       constraintName="tabela-exercicio-info-pk"/>
+    </changeSet>
+
+    <changeSet id="Tabela_Exercitar" author="Leo">
+        <createTable tableName="T_EXERCITAR">
+
+            <column name="cd_exercitar" type="BIGINT"></column>
+            <column name="cd_exercicio_info" type="BIGINT"></column>
+            <column name="cd_usuario" type="BIGINT"></column>
+            <column name="temp_treino" type="TIME"></column>
+            <column name="date_historico_exercicio" type="DATE"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_tabela_exercitar" author="Leo">
+        <addPrimaryKey columnNames="cd_exercitar" tableName="T_EXERCITAR" constraintName="tabela-exercitar-pk"/>
+    </changeSet>
+
+    <changeSet author="Leo" id="ADD_FK_Tabela_Exercitar">
+
+        <addForeignKeyConstraint baseColumnNames="cd_exercicio_info"
+                                 baseTableName="T_EXERCITAR"
+                                 constraintName="FK_T_EXERCICIO_INFO_EXERCITAR"
+                                 referencedColumnNames="cd_exercicio_info"
+                                 referencedTableName="T_EXERCICIO_INFO"
+
+        />
+
+        <addForeignKeyConstraint baseColumnNames="cd_usuario"
+                                 baseTableName="T_EXERCITAR"
+                                 constraintName="FK_T_USUARIO_EXERCITAR"
+                                 referencedColumnNames="cd_usuario"
+                                 referencedTableName="T_USUARIO"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_AGUA" author="Leo">
+        <createTable tableName="T_AGUA">
+
+            <column name="cd_agua" type="BIGINT"></column>
+            <column name="cd_usuario" type="BIGINT"></column>
+            <column name="qtd_agua_ml" type="INT"></column>
+            <column name="date_historico_agua" type="date"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_agua" author="Leo">
+        <addPrimaryKey columnNames="cd_agua" tableName="T_AGUA" constraintName="tabela-agua-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_agua" author="'Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_usuario"
+                                 baseTableName="T_AGUA"
+                                 constraintName="FK_T_AGUA_CD_USUARIO"
+                                 referencedColumnNames="cd_usuario"
+                                 referencedTableName="T_USUARIO"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_REDE_SOCIAL" author="Leo">
+        <createTable tableName="T_REDE_SOCIAL">
+
+            <column name="cd_rede_social" type="BIGINT"></column>
+            <column name="cd_usuario" type="BIGINT"></column>
+            <column name="tp_rede_social" type="VARCHAR(30)"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_rede_social" author="Leo">
+        <addPrimaryKey columnNames="cd_rede_social" tableName="T_REDE_SOCIAL" constraintName="tabela-rede-social-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_rede_social" author="'Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_usuario"
+                                 baseTableName="T_REDE_SOCIAL"
+                                 constraintName="FK_REDE_SOCIAL_CD_USUARIO"
+                                 referencedColumnNames="cd_usuario"
+                                 referencedTableName="T_USUARIO"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_HISTORICO_PESO_ALTURA" author="Leo">
+        <createTable tableName="T_HISTORICO_PESO_ALTURA">
+
+            <column name="cd_historico_peso" type="BIGINT"></column>
+            <column name="cd_usuario" type="BIGINT"></column>
+            <column name="dt_atualizacao_peso" type="date"></column>
+            <column name="vl_peso" type="float"></column>
+            <column name="vl_altura" type="float"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_historico_peso_altura" author="Leo">
+        <addPrimaryKey columnNames="cd_historico_peso" tableName="T_HISTORICO_PESO_ALTURA"
+                       constraintName="tabela-historico_peso_altura-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_historico_peso_altura" author="Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_usuario"
+                                 baseTableName="T_HISTORICO_PESO_ALTURA"
+                                 constraintName="FK_HISTORICO_PESO_ALTURA_CD_USUARIO"
+                                 referencedColumnNames="cd_usuario"
+                                 referencedTableName="T_USUARIO"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_COMIDA" author="Leo">
+        <createTable tableName="T_COMIDA">
+
+            <column name="cd_comida" type="BIGINT"></column>
+            <column name="nm_comida" type="BIGINT"></column>
+            <column name="exibir_foto" type="BLOB"></column>
+            <column name="vl_caloria_grama" type="float"></column>
+            <column name="qtd_carboidratos_grama" type="float"></column>
+            <column name="qntd_proteina_grama" type="float"></column>
+            <column name="qtd_gordura_grama" type="float"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_comida" author="Leo">
+        <addPrimaryKey columnNames="cd_comida" tableName="T_COMIDA" constraintName="tabela_comida_pk"/>
+    </changeSet>
+
+    <changeSet id="T_COMER" author="Leo">
+
+        <createTable tableName="T_COMER">
+
+            <column name="cd_comer" type="BIGINT"></column>
+            <column name="cd_usuario" type="BIGINT"></column>
+            <column name="cd_comida" type="BIGINT"></column>
+            <column name="qntd_comida_grama" type="float"></column>
+            <column name="dt_historico_comida" type="date"></column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="pk_t_comer" author="Leo">
+        <addPrimaryKey columnNames="cd_comer" tableName="T_COMER" constraintName="tabela-comer-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_comer" author="Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_usuario"
+                                 baseTableName="T_COMER"
+                                 constraintName="FK_T_COMER_T_USUARIO"
+                                 referencedColumnNames="cd_usuario"
+                                 referencedTableName="T_USUARIO"
+
+        />
+
+        <addForeignKeyConstraint baseColumnNames="cd_comida"
+                                 baseTableName="T_COMER"
+                                 constraintName="FK_T_COMER_T_COMIDA"
+                                 referencedColumnNames="cd_comida"
+                                 referencedTableName="T_COMIDA"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_PERSONAL" author="Leo">
+
+        <createTable tableName="T_PERSONAL">
+
+            <column name="cd_personal" type="BIGINT"></column>
+            <column name="doc_cref" type="VARCHAR(50)"></column>
+            <column name="dt_inscricao" type="date"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_personal" author="Leo">
+        <addPrimaryKey columnNames="cd_personal" tableName="T_PERSONAL" constraintName="tabela-personal-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_personal" author="Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_personal"
+                                 baseTableName="T_PERSONAL"
+                                 constraintName="FK_T_PERSONAL_T_PESSOA"
+                                 referencedColumnNames="cd_pessoa"
+                                 referencedTableName="T_PESSOA"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_SKILLS_PERSONAL" author="Leo">
+
+        <createTable tableName="T_SKILLS_PERSONAL">
+
+            <column name="cd_skill_personal" type="BIGINT"></column>
+            <column name="cd_personal" type="BIGINT"></column>
+            <column name="tp_skill" type="VARCHAR(55)"></column>
+            <column name="nm_skill" type="VARCHAR(55)"></column>
+            <column name="nvl_skill" type="INT"></column>
+
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_skills_personal" author="Leo">
+        <addPrimaryKey columnNames="cd_skill_personal" tableName="T_SKILLS_PERSONAL" constraintName="tabela-skills-personal-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_skills_personal" author="Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_personal"
+                                 baseTableName="T_SKILLS_PERSONAL"
+                                 constraintName="FK_T_PERSONAL_SKILLS_T_PERSONAL"
+                                 referencedColumnNames="cd_personal"
+                                 referencedTableName="T_PERSONAL"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_NUTRICIONISTA" author="Leo">
+
+        <createTable tableName="T_NUTRICIONISTA">
+
+            <column name="cd_nutricionista" type="BIGINT"></column>
+            <column name="exibir_foto" type="blob"></column>
+            <column name="doc_crn" type="VARCHAR(55)"></column>
+            <column name="dt_inscricao" type="date"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_nutricionista" author="Leo">
+        <addPrimaryKey columnNames="cd_nutricionista" tableName="T_NUTRICIONISTA" constraintName="tabela-nutricionista-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_nutricionista" author="Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_nutricionista"
+                                 baseTableName="T_NUTRICIONISTA"
+                                 constraintName="FK_T_NUTRICIONISTA_T_PESSOA"
+                                 referencedColumnNames="cd_pessoa"
+                                 referencedTableName="T_PESSOA"
+
+        />
+    </changeSet>
+
+    <changeSet id="T_SKILLS_NUTRI" author="Leo">
+
+        <createTable tableName="T_SKILLS_NUTRI">
+
+            <column name="cd_skill" type="BIGINT"></column>
+            <column name="cd_nutricionista" type="BIGINT"></column>
+            <column name="tp_skill" type="VARCHAR(55)"></column>
+            <column name="nvl_skill" type="int"></column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="pk_t_skills_nutri" author="Leo">
+        <addPrimaryKey columnNames="cd_skill" tableName="T_SKILLS_NUTRI" constraintName="tabela-skills_nutri-pk"/>
+    </changeSet>
+
+    <changeSet id="fk_t_skills_nutri" author="Leo">
+        <addForeignKeyConstraint baseColumnNames="cd_nutricionista"
+                                 baseTableName="T_SKILLS_NUTRI"
+                                 constraintName="FK_T_NUTRICIONISTA_T_NUTRICIONISTA"
+                                 referencedColumnNames="cd_nutricionista"
+                                 referencedTableName="T_NUTRICIONISTA"
+
+        />
+    </changeSet>
+
+</databaseChangeLog>

@@ -6,5 +6,7 @@
             http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
         <include file="db/changelog/24102021-initial-entities.xml"/>
+        <include file="db/changelog/12122021-update-tables.xml"/>
+
 
 </databaseChangeLog>
